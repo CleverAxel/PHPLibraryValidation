@@ -14,15 +14,15 @@ class RequiredRule extends AbstractRule{
     public function validateRule(mixed $value): bool
     {
         $this->setValue($value);
-        if(isset($value) == false || is_null($this->getValue())){
+        if(isset($value) == false || is_null($value)){
             return false;
         }
 
-        if(is_string($this->getValue()) && strlen(trim($this->getValue())) == 0){
+        if(is_string($value) && strlen(trim($value)) == 0){
             return false;
         }
 
-        if(is_array($this->getValue()) && count($this->getValue()) == 0){
+        if(is_array($value) && count($value) == 0){
             return false;
         }
 

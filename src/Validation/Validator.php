@@ -33,7 +33,6 @@ class Validator
     {
 
         foreach ($this->validationRulesWithKey as $key => $validationRules) {
-
             $this->testForNullableRuleAndRequiredRuleInSameList($validationRules);
             if ($this->dataExists($key)) {
                 $this->testValidationRules($validationRules, $key);
@@ -110,6 +109,10 @@ class Validator
                     if (is_null($validValue) || $validationRule->getShouldCastValue()) {
                         $validValue = $validationRule->getValue();
                     }
+                }
+                else if($this->canBeNullable == false){
+                    $this->didValidationFailed = true;
+                    $this->setErrorMessage($key, $validationRule->getMessage());
                 }
 
             } else {

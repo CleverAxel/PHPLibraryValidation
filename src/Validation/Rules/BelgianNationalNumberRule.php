@@ -16,37 +16,37 @@ class BelgianNationalNumberRule extends AbstractRule
     {
         $this->setValue($value);
         $this->setMessage("Le numéro de registre national n'est pas valide.");
-        if (!is_string($this->getValue())) {
+        if (!is_string($value)) {
             return false;
         }
 
-        $this->setValue(StringHelper::removeCommonsSeparations($this->getValue()));
+        $this->setValue(StringHelper::removeCommonsSeparations($value));
 
-        if (strlen($this->getValue()) != 11 || !is_numeric($this->getValue())) {
+        if (strlen($value) != 11 || !is_numeric($value)) {
             return false;
         }
 
-        if ($this->doesMonthExist($this->getValue())) {
+        if ($this->doesMonthExist($value)) {
             //20ième siècle
-            if($this->isNationalNumberValid($this->getValue(), false)){
+            if($this->isNationalNumberValid($value, false)){
                 return true;
             }
 
             $today = date("Y/m/d");
             //21ième siècle
-            if($this->isNationalNumberValid($this->getValue(), true) && 
-                DateTimeHelper::isFirstDateSoonerOrEqualsThanSecond($this->getDateFromNationalNumber($this->getValue(), true), $today)){
+            if($this->isNationalNumberValid($value, true) && 
+                DateTimeHelper::isFirstDateSoonerOrEqualsThanSecond($this->getDateFromNationalNumber($value, true), $today)){
                 return true;
             }
 
         } else {
             //20ieme siècle
-            if($this->isNationalNumberValid($this->getValue(), false)){
+            if($this->isNationalNumberValid($value, false)){
                 return true;
             }
 
             //21ième siècle
-            if($this->isNationalNumberValid($this->getValue(), true)){
+            if($this->isNationalNumberValid($value, true)){
                 return true;
             }
         }

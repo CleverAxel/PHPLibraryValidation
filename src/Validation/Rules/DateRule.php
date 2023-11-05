@@ -17,7 +17,7 @@ class DateRule extends AbstractRule{
     public function validateRule(mixed $value): bool
     {
         $this->setValue($value);
-        return DateTimeHelper::validateDate($this->getValue(), $this->format);
+        return DateTimeHelper::validateDate($value, $this->format);
     }
     
 }

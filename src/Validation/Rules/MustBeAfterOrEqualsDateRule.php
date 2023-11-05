@@ -10,9 +10,9 @@ class MustBeAfterOrEqualsDateRule extends MustBeAfterDateRule{
     {
         $this->setValue($value);
         $this->setMessage("La date donnée n'est pas valide ou n'est pas plus tard ou égal dans le temps que le " . DateTime::createFromFormat($this->format, $this->dateToCompare)->format("d/m/Y"));
-        if(DateTimeHelper::validateDate($this->getValue(), $this->format) == false || DateTimeHelper::validateDate($this->dateToCompare, $this->format) == false){
+        if(DateTimeHelper::validateDate($value, $this->format) == false || DateTimeHelper::validateDate($this->dateToCompare, $this->format) == false){
             return false;
         }
-        return DateTimeHelper::isFirstDateLaterOrEqualsThanSecond($this->getValue(), $this->dateToCompare, $this->format);
+        return DateTimeHelper::isFirstDateLaterOrEqualsThanSecond($value, $this->dateToCompare, $this->format);
     }
 }

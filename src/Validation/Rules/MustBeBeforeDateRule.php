@@ -5,7 +5,7 @@ namespace App\Validation\Rules;
 use DateTime;
 use App\Helper\DateTimeHelper;
 
-class MustBeBeforeDateRule extends AbstractRule{
+class MustBeBeforeDateRule extends AbstractRuleThrowableException{
     protected string $format;
     protected string $dateToCompare;
 
@@ -13,16 +13,24 @@ class MustBeBeforeDateRule extends AbstractRule{
     {
         $this->format = $format;
         $this->dateToCompare = $dateToCompare;
+        $this->tryThrowRuleException();
     }
 
     public function validateRule(mixed $value): bool
     {
         $this->setValue($value);
         $this->setMessage("La date donnée n'est pas valide ou n'est pas plus tôt dans le temps que le " . DateTime::createFromFormat($this->format, $this->dateToCompare)->format("d/m/Y"));
-        if(DateTimeHelper::validateDate($this->getValue(), $this->format) == false || DateTimeHelper::validateDate($this->dateToCompare, $this->format) == false){
+        if(DateTimeHelper::validateDate($value, $this->format) == false || DateTimeHelper::validateDate($this->dateToCompare, $this->format) == false){
             return false;
         }
 
-        return DateTimeHelper::isFirstDateSoonerThanSecond($this->getValue(), $this->dateToCompare, $this->format);
+        return DateTimeHelper::isFirstDateSoonerThanSecond($value, $this->dateToCompare, $this->format);
+    }
+
+    protected function tryThrowRuleException()
+    {
+        if(str_contains($this->format, "Y") == false || str_contains($this->format, "m") == false | str_contains($this->format, "Y") == false){
+            throw new RuleException("The format need to incorporate at least Y/m/d");
+        }
     }
 }

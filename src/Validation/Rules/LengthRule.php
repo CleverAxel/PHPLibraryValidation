@@ -20,13 +20,13 @@ class LengthRule extends AbstractRuleThrowableException
         $this->setValue($value);
         $this->tryThrowRuleException();
 
-        if(is_string($this->getValue()) == false && is_array($this->getValue()) == false){
+        if(is_string($value) == false && is_array($value) == false){
             $this->setMessage("La donnée n'est ni sous forme de texte, ni sous forme de liste.");
             return false;
         }
 
-        if (is_string($this->getValue())) {
-            $stringLength = strlen(trim($this->getValue()));
+        if (is_string($value)) {
+            $stringLength = strlen(trim($value));
 
             if($stringLength < $this->minLength){
                 $this->setMessage("La longueur de votre :string, doit être supérieur ou égal à " . $this->minLength);
@@ -38,8 +38,8 @@ class LengthRule extends AbstractRuleThrowableException
                 return false;
             }
 
-        } else if (is_array($this->getValue())) {
-            $arrayLength = count($this->getValue());
+        } else if (is_array($value)) {
+            $arrayLength = count($value);
             if($arrayLength < $this->minLength){
                 $this->setMessage("La longueur de votre :array, doit être supérieur ou égal à " . $this->minLength);
                 return false;
@@ -56,7 +56,7 @@ class LengthRule extends AbstractRuleThrowableException
 
     protected function tryThrowRuleException()
     {
-        $value = $this->getValue();
+        $value = $this->getValueUncasted();
         if(isset($value) == false){
             throw new RuleException("No value passed");
         }
