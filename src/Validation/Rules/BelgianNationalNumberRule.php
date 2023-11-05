@@ -14,13 +14,12 @@ class BelgianNationalNumberRule extends AbstractRule
 
     public function validateRule(mixed $value): bool
     {
+        $value = StringHelper::removeCommonsSeparations($value);
         $this->setValue($value);
         $this->setMessage("Le numéro de registre national n'est pas valide.");
         
         if (!is_string($value))
             return false;
-
-        $this->setValue(StringHelper::removeCommonsSeparations($value));
 
         if (strlen($value) != 11 || !is_numeric($value)) {
             return false;
