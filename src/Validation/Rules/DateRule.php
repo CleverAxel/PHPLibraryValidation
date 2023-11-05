@@ -17,6 +17,11 @@ class DateRule extends AbstractRule{
     public function validateRule(mixed $value): bool
     {
         $this->setValue($value);
+        
+        if(!is_string($value)){
+            return false;
+        }
+
         return DateTimeHelper::validateDate($value, $this->format);
     }
     

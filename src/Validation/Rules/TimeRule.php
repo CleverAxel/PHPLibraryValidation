@@ -11,6 +11,11 @@ class TimeRule extends AbstractRule{
     {
         $this->setValue($value);
         $this->setMessage("L'heure donnée n'est pas valide.");
+        
+        if(!is_string($value)){
+            return false;
+        }
+        
         return DateTimeHelper::validateTime($value, $this->format);
     }
 }

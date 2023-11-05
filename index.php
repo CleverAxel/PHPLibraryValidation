@@ -74,10 +74,14 @@ $validator3 = new Validator([
     ],
     "end_time" => [
         new MustBeBeforeTimeRule("18:00"),
+    ],
+    "test_date" => [
+        new DateRule(),
     ]
 ], [
     "start_time" => "10:30",
-    "end_time" => "18:30"
+    "end_time" => "17:30",
+    "test_date" => [1,2,3,4]
 ]);
 
 $validator3->validate();

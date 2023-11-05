@@ -17,6 +17,11 @@ class MustBeAfterTimeRule extends AbstractRule{
     {
         $this->setValue($value);
         $this->setMessage("L'heure donnée n'est pas valide ou n'est pas plus tard dans le temps que " . $this->timeToCompare);
+        
+        if(!is_string($value)){
+            return false;
+        }
+
         if(DateTimeHelper::validateTime($value, $this->format) == false || DateTimeHelper::validateTime($this->timeToCompare, $this->format) == false){
             return false;
         }

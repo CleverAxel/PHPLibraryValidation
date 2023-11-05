@@ -3,6 +3,9 @@ namespace App\Helper;
 
 class NumberHelper{
     public static function isInteger(mixed $value){
+        if(is_integer($value))
+            return true;
+
         if(!is_numeric($value))
             return false;
 
@@ -10,6 +13,9 @@ class NumberHelper{
     }
 
     public static function isFloat(mixed $value){
+        if(is_float($value))
+            return true;
+
         if(!is_numeric($value))
             return false;
 
