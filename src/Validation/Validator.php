@@ -33,6 +33,7 @@ class Validator
 
         foreach ($this->validationRulesWithKey as $key => $validationRules) {
             $this->testForNullableRuleAndRequiredRuleInSameList($validationRules);
+
             if($this->dataExists($key) == false){
                 $this->data[$key] = "";
             }
@@ -75,17 +76,6 @@ class Validator
         }
     }
 
-    private function testIfCanBeNullable(string $key)
-    {
-        if ($this->canBeNullable) {
-            $this->setValidatedData($key, null);
-            return;
-        }
-
-        $this->didValidationFailed = true;
-        $this->setErrorMessage($key, "Le champs, :value, est obligatoire.");
-    }
-
     private function setValidatedData(string $key, mixed $value)
     {
         $this->validatedData[$key] = $value;
@@ -105,7 +95,7 @@ class Validator
 
         foreach ($validationRules as $validationRule) {
 
-            if ($validationRule->validateRule($this->data[$key]) == false) {
+            if ($validationRule($this->data[$key]) == false) {
                 //si une règle dit que ça peut être NULL mais qu'il y a un input, je considère que la règle a été enfreinte et que la validation
                 //pour cette règle a raté. Sinon si ça peut être NULL et que l'input est vide, je casse la boucle
                 if (($this->canBeNullable && $this->isDataEmpty($this->data[$key]) == false) || $this->canBeNullable == false) {
@@ -118,7 +108,7 @@ class Validator
                 //une des règles a été validée on sauvegarde la valeur.
                 //Si une valeur n'a pas encore été assignée ou si c'est la règle a également pour rôle de cast la valeur on assigne à validValue
                 if (is_null($validValue) || $validationRule->getShouldCastValue()) {
-                    $validValue = $validationRule->getValue();
+                    $validValue = $validationRule->getValue($validationRule->getShouldCastValue());
                 }
             }
         }

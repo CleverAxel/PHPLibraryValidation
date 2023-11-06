@@ -14,9 +14,9 @@ class MinRule extends AbstractRule{
         $this->minValue = $minValue;
     }
 
-    public function validateRule(mixed $value): bool
+    public function isRuleValid(): bool
     {
-        $this->setValue($value);
+        $value = $this->getValue();
         $this->setMessage("La valeur ne peut pas être plus petite que : " . $this->minValue);
 
         if(NumberHelper::isFloat($value) == false || (float)$value < $this->minValue){

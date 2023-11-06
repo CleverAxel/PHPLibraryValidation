@@ -7,16 +7,21 @@ class BooleanRule extends AbstractRule{
     {
         $this->setType("bool");
     }
-    public function validateRule(mixed $value): bool
+
+    public function isRuleValid(): bool
     {
-        if($value == ""){
+        $this->setMessage("La valeur booléenne n'est pas correct.");
+        if(in_array($this->getValue(), ["1", "0", 1, 0, true, false, "true", "false"])){
+            return true;
+        }
+
+        $value = true;
+        if($this->getValue() == ""){
             $value = false;
-        }else {
-            $value = true;
         }
         
         $this->setValue($value);
-        $this->setMessage("La valeur booléenne n'est pas correct.");
-        return in_array($value, ["1", "0", 1, 0, true, false, "true", "false"]);
+        return true;
+        // return in_array($value, ["1", "0", 1, 0, true, false, "true", "false"]);
     }
 }

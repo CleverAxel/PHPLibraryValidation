@@ -7,9 +7,9 @@ use App\Validation\Rules\MustBeAfterTimeRule;
 
 class MustBeAfterOrEqualsTimeRule extends MustBeAfterTimeRule{
 
-    public function validateRule(mixed $value): bool
+    public function isRuleValid(): bool
     {
-        $this->setValue($value);
+        $value = $this->getValue();
         $this->setMessage("L'heure donnée n'est pas valide ou n'est pas plus tard ou égal dans le temps que " . $this->timeToCompare);
         
         if(!is_string($value)){

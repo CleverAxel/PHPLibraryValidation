@@ -6,9 +6,9 @@ use App\Helper\StringHelper;
 
 class BelgianPhoneNumberRule extends AbstractRule{
 
-    public function validateRule(mixed $value): bool
+    public function isRuleValid(): bool
     {
-        $this->setValue($value);
+        $value = $this->getValue();
         $this->setMessage("Le numéro de téléphone donné n'est pas valide ou n'est pas belge.");
 
         if(!is_string($value))

@@ -14,9 +14,9 @@ class DateRule extends AbstractRule{
         $this->setMessage("La date donnée n'est pas valide");
     }
 
-    public function validateRule(mixed $value): bool
+    public function isRuleValid(): bool
     {
-        $this->setValue($value);
+        $value = $this->getValue();
         
         if(!is_string($value)){
             return false;

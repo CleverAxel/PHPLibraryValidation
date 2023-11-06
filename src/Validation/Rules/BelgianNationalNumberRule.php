@@ -12,10 +12,9 @@ use DateTime;
 class BelgianNationalNumberRule extends AbstractRule
 {
 
-    public function validateRule(mixed $value): bool
+    public function isRuleValid(): bool
     {
-        $value = StringHelper::removeCommonsSeparations($value);
-        $this->setValue($value);
+        $value = StringHelper::removeCommonsSeparations($this->getValue());
         $this->setMessage("Le numéro de registre national n'est pas valide.");
         
         if (!is_string($value))

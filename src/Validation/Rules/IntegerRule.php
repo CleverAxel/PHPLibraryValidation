@@ -11,11 +11,10 @@ class IntegerRule extends AbstractRule{
         $this->setType("int");
     }
 
-    public function validateRule(mixed $value): bool
+    public function isRuleValid(): bool
     {
-        $this->setValue($value);
         $this->setMessage("La valeur donnée doit être un nombre entier");
 
-        return NumberHelper::isInteger($value);
+        return NumberHelper::isInteger($this->getValue());
     }
 }

@@ -13,9 +13,9 @@ class MaxRule extends AbstractRule{
         $this->maxValue = $maxValue;
     }
 
-    public function validateRule(mixed $value): bool
+    public function isRuleValid(): bool
     {
-        $this->setValue($value);
+        $value = $this->getValue();
         $this->setMessage("La valeur ne peut pas être plus grande que : " . $this->maxValue);
 
         if(NumberHelper::isFloat($value) == false || (float)$value > $this->maxValue){

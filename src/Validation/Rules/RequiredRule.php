@@ -11,9 +11,9 @@ class RequiredRule extends AbstractRule{
         $this->setMessage("Le champs, :value, est obligatoire");
     }
 
-    public function validateRule(mixed $value): bool
+    public function isRuleValid(): bool
     {
-        $this->setValue($value);
+        $value = $this->getValue();
         if(isset($value) == false || is_null($value)){
             return false;
         }

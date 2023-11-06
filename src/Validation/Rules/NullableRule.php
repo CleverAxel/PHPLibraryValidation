@@ -7,9 +7,8 @@ namespace App\Validation\Rules;
  * validateur, la valeur par défaut sera "null" et on ne renverra pas de message d'erreur.
  */
 class NullableRule extends AbstractRule{
-    public function validateRule(mixed $value): bool
+    public function isRuleValid(): bool
     {
-        $this->setValue($value);
         return true;
     }
 }

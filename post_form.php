@@ -7,7 +7,6 @@ use App\Validation\Rules\BelgianNationalNumberRule;
 use App\Validation\Rules\BelgianPhoneNumberRule;
 use App\Validation\Rules\LengthRule;
 use App\Validation\Rules\MustBeAfterTimeRule;
-use App\Validation\Rules\MustBeBeforeDateRule;
 use App\Validation\Rules\MustBeBeforeOrEqualsDateRule;
 use App\Validation\Rules\MustBeBeforeTimeRule;
 use App\Validation\Rules\RequiredRule;

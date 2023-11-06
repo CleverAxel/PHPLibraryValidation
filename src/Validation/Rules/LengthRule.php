@@ -15,9 +15,9 @@ class LengthRule extends AbstractRuleThrowableException
         $this->minLength = $minLength;
     }
 
-    public function validateRule(mixed $value): bool
+    public function isRuleValid(): bool
     {
-        $this->setValue($value);
+        $value = $this->getValue();
         $this->tryThrowRuleException();
 
         if(is_string($value) == false && is_array($value) == false){
@@ -56,7 +56,7 @@ class LengthRule extends AbstractRuleThrowableException
 
     protected function tryThrowRuleException()
     {
-        $value = $this->getValueUncasted();
+        $value = $this->getValue();
         if(isset($value) == false){
             throw new RuleException("No value passed");
         }

@@ -11,11 +11,9 @@ class FloatRule extends AbstractRule{
         $this->setType("float");
     }
 
-    public function validateRule(mixed $value): bool
+    public function isRuleValid(): bool
     {
-        $this->setValue($value);
         $this->setMessage("La valeur donnée doit être un nombre à virgule");
-
-        return NumberHelper::isFloat($value);
+        return NumberHelper::isFloat($this->getValue());
     }
 }

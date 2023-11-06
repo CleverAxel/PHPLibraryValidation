@@ -68,24 +68,23 @@ use App\Validation\Validator;
 // $validator2->validate();
 
 
-$validator3 = new Validator([
-    "start_time" => [
-        new MustBeAfterTimeRule("10:00")
-    ],
-    "end_time" => [
-        new MustBeBeforeTimeRule("18:00"),
-    ],
-    "test_date" => [
-        new DateRule(),
-    ]
-], [
-    "start_time" => "10:30",
-    "end_time" => "17:30",
-    "test_date" => [1,2,3,4]
-]);
+// $validator3 = new Validator([
+//     "start_time" => [
+//         new MustBeAfterTimeRule("10:00")
+//     ],
+//     "end_time" => [
+//         new MustBeBeforeTimeRule("18:00"),
+//     ],
+//     "test_date" => [
+//         new DateRule(),
+//     ]
+// ], [
+//     "start_time" => "10:30",
+//     "end_time" => "17:30",
+//     "test_date" => [1,2,3,4]
+// ]);
 
-$validator3->validate();
-
+// $validator3->validate();
 
 // function testRule(AbstractRule $rule){
 //     echo $rule::class . " :<br>";

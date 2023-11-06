@@ -16,9 +16,9 @@ class MustBeBeforeDateRule extends AbstractRuleThrowableException{
         $this->tryThrowRuleException();
     }
 
-    public function validateRule(mixed $value): bool
+    public function isRuleValid(): bool
     {
-        $this->setValue($value);
+        $value = $this->getValue();
         $this->setMessage("La date donnée n'est pas valide ou n'est pas plus tôt dans le temps que le " . DateTime::createFromFormat($this->format, $this->dateToCompare)->format("d/m/Y"));
         
         if(!is_string($value)){

@@ -5,9 +5,9 @@ namespace App\Validation\Rules;
 use App\Helper\DateTimeHelper;
 
 class MustBeBeforeOrEqualsTimeRule extends MustBeBeforeTimeRule{
-    public function validateRule(mixed $value): bool
+    public function isRuleValid(): bool
     {
-        $this->setValue($value);
+        $value = $this->getValue();
         $this->setMessage("L'heure donnée n'est pas valide ou n'est pas plus tôt ou égal dans le temps que " . $this->timeToCompare);
         
         if(!is_string($value)){
