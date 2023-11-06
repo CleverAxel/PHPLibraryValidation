@@ -4,7 +4,6 @@ namespace App\Validation;
 
 use App\Validation\Rules\NullableRule;
 use App\Validation\Rules\RequiredRule;
-use Exception;
 use LogicException;
 
 class Validator
@@ -34,11 +33,17 @@ class Validator
 
         foreach ($this->validationRulesWithKey as $key => $validationRules) {
             $this->testForNullableRuleAndRequiredRuleInSameList($validationRules);
-            if ($this->dataExists($key)) {
-                $this->testValidationRules($validationRules, $key);
-            } else {
-                $this->testIfCanBeNullable($key);
+            if($this->dataExists($key) == false){
+                $this->data[$key] = "";
             }
+
+            $this->executeValidationRules($validationRules, $key);
+
+            // if ($this->dataExists($key)) {
+            //     $this->executeValidationRules($validationRules, $key);
+            // } else {
+            //     $this->testIfCanBeNullable($key);
+            // }
             // if($this->dataExists($key)){
             //     foreach ($validationRules as $validationRule) {
             //         if ($validationRule->validateRule($this->data[$key]) == false) {
@@ -94,36 +99,31 @@ class Validator
     /**
      * @param \App\Validation\Rules\AbstractRule[] $validationRules
      */
-    private function testValidationRules(array &$validationRules, string $key)
+    private function executeValidationRules(array &$validationRules, string $key)
     {
         $validValue = null;
+
         foreach ($validationRules as $validationRule) {
 
             if ($validationRule->validateRule($this->data[$key]) == false) {
-
-                if ($this->canBeNullable && $this->isDataEmpty($this->data[$key]) == false) {
+                //si une règle dit que ça peut être NULL mais qu'il y a un input, je considère que la règle a été enfreinte et que la validation
+                //pour cette règle a raté. Sinon si ça peut être NULL et que l'input est vide, je casse la boucle
+                if (($this->canBeNullable && $this->isDataEmpty($this->data[$key]) == false) || $this->canBeNullable == false) {
                     $this->didValidationFailed = true;
                     $this->setErrorMessage($key, $validationRule->getMessage());
+                } else if ($this->canBeNullable && $this->isDataEmpty($this->data[$key])) {
+                    break;
                 }
-                else if($this->canBeNullable && $this->isDataEmpty($this->data[$key])) {
-                    if (is_null($validValue) || $validationRule->getShouldCastValue()) {
-                        $validValue = $validationRule->getValue();
-                    }
-                }
-                else if($this->canBeNullable == false){
-                    $this->didValidationFailed = true;
-                    $this->setErrorMessage($key, $validationRule->getMessage());
-                }
-
             } else {
+                //une des règles a été validée on sauvegarde la valeur.
+                //Si une valeur n'a pas encore été assignée ou si c'est la règle a également pour rôle de cast la valeur on assigne à validValue
                 if (is_null($validValue) || $validationRule->getShouldCastValue()) {
                     $validValue = $validationRule->getValue();
                 }
             }
         }
-
         if ($this->didValidationFailed == false) {
-            if ($this->isDataEmpty($this->data[$key])) {
+            if ($this->isDataEmpty($this->data[$key]) && is_string($validValue) && trim($validValue) == "") {
                 $this->validatedData[$key] = null;
             } else {
                 $this->validatedData[$key] = $validValue;

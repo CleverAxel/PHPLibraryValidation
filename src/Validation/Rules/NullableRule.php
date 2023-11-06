@@ -9,6 +9,7 @@ namespace App\Validation\Rules;
 class NullableRule extends AbstractRule{
     public function validateRule(mixed $value): bool
     {
+        $this->setValue($value);
         return true;
     }
 }
