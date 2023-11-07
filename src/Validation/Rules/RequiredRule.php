@@ -8,12 +8,13 @@ class RequiredRule extends AbstractRule{
 
     public function __construct()
     {
-        $this->setMessage("Le champs, :value, est obligatoire");
     }
-
+    
     public function isRuleValid(): bool
     {
         $value = $this->getValue();
+        $this->setMessage("Le champs, :" .$this->getKey(). ", est obligatoire");
+        
         if(isset($value) == false || is_null($value)){
             return false;
         }

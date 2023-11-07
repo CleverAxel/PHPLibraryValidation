@@ -9,10 +9,17 @@ abstract class AbstractRule
     private string $message = "";
     private mixed $value = null;
     private ?string $type = null;
+    private ?string $key = null;
     
-    public function __invoke(mixed $value) : bool
+    public function __invoke(mixed $value, string $key) : bool
     {
+
+        if(is_string($value))
+            trim($value);
+
         $this->setValue($value);
+        $this->setKey($key);
+        
         return $this->isRuleValid();
     }
     
@@ -21,6 +28,14 @@ abstract class AbstractRule
     public function getMessage(): string
     {
         return $this->message;
+    }
+
+    protected function getKey(){
+        return $this->key;
+    }
+
+    private function setKey(string $key){
+        $this->key = $key;
     }
 
     protected function setMessage(string $message){
@@ -36,7 +51,7 @@ abstract class AbstractRule
     }
 
     public function getValue($shouldCastValue = false){
-        if(is_null($this->type)){
+        if(is_null($this->type) && $shouldCastValue){
             throw new BadMethodCallException("The type for the casting isn't set.");
         }
 
@@ -46,7 +61,6 @@ abstract class AbstractRule
         }
 
         return $this->value;
-
     }
 
     // public function getCastedValue(){

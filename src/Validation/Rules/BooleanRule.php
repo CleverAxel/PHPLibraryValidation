@@ -16,12 +16,12 @@ class BooleanRule extends AbstractRule{
         }
 
         $value = true;
-        if($this->getValue() == ""){
+        if($this->getValue() == null){
             $value = false;
         }
         
         $this->setValue($value);
-        return true;
-        // return in_array($value, ["1", "0", 1, 0, true, false, "true", "false"]);
+        // return true;
+        return in_array($value, ["1", "0", 1, 0, true, false, "true", "false"]);
     }
 }

@@ -34,9 +34,11 @@ class Validator
         foreach ($this->validationRulesWithKey as $key => $validationRules) {
             $this->testForNullableRuleAndRequiredRuleInSameList($validationRules);
 
-            if($this->dataExists($key) == false){
-                $this->data[$key] = "";
+            if(isset($this->data[$key]) == false){
+                $this->data[$key] = null;
             }
+            // var_dump($this->data);
+            // die;
 
             $this->executeValidationRules($validationRules, $key);
 
@@ -95,7 +97,7 @@ class Validator
 
         foreach ($validationRules as $validationRule) {
 
-            if ($validationRule($this->data[$key]) == false) {
+            if ($validationRule($this->data[$key], $key) == false) {
                 //si une règle dit que ça peut être NULL mais qu'il y a un input, je considère que la règle a été enfreinte et que la validation
                 //pour cette règle a raté. Sinon si ça peut être NULL et que l'input est vide, je casse la boucle
                 if (($this->canBeNullable && $this->isDataEmpty($this->data[$key]) == false) || $this->canBeNullable == false) {
