@@ -16,11 +16,14 @@ class MaxRule extends AbstractRule{
     public function isRuleValid(): bool
     {
         $value = $this->getValue();
-        $this->setMessage("La valeur ne peut pas être plus grande que : " . $this->maxValue);
 
-        if(NumberHelper::isFloat($value) == false || (float)$value > $this->maxValue){
+        $this->setMessage("La valeur du champs " . $this->getPlaceHolder() ." n'est pas un nombre");
+        if(NumberHelper::isFloat($value) == false)
             return false;
-        }
+
+        $this->setMessage("La valeur du champs " . $this->getPlaceHolder() . " ne peut pas être plus grande que : " . $this->maxValue);
+        if((float)$value > $this->maxValue)
+            return false;
 
         return true;
     }

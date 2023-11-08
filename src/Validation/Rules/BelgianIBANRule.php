@@ -5,7 +5,7 @@ namespace App\Validation\Rules;
 class BelgianIBANRule extends AbstractRule{
     public function isRuleValid(): bool
     {
-        $this->setMessage("Ce numéro de compte IBAN belge n'est pas valide. Vérifiez que les deux premières lettres BE soient en majuscules et respectez les espaces ou n'en mettez pas.");
+        $this->setMessage("Le numéro de compte IBAN belge venant du champs ". $this->getPlaceHolder() ." n'est pas valide. Vérifiez que les deux premières lettres BE soient en majuscules et respectez les espaces ou n'en mettez pas.");
         
         if(!is_string($this->getValue()))
             return false;

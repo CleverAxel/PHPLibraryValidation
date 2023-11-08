@@ -6,14 +6,10 @@ use App\Validation\Rules\AbstractRule;
 
 class RequiredRule extends AbstractRule{
 
-    public function __construct()
-    {
-    }
-    
     public function isRuleValid(): bool
     {
         $value = $this->getValue();
-        $this->setMessage("Le champs, :" .$this->getKey(). ", est obligatoire");
+        $this->setMessage("Le champs, " . $this->getPlaceHolder() . ", est obligatoire");
         
         if(isset($value) == false || is_null($value)){
             return false;

@@ -15,7 +15,7 @@ abstract class AbstractRule
     {
 
         if(is_string($value))
-            trim($value);
+           $value = trim($value);
 
         $this->setValue($value);
         $this->setKey($key);
@@ -50,6 +50,13 @@ abstract class AbstractRule
         return is_null($this->type) == false;
     }
 
+    protected function getPlaceHolder(?string $placeholder = null){
+        if(is_null($placeholder) == false)
+            return ":".$placeholder;
+        
+        return ":".$this->getKey();
+    }
+
     public function getValue($shouldCastValue = false){
         if(is_null($this->type) && $shouldCastValue){
             throw new BadMethodCallException("The type for the casting isn't set.");
@@ -60,21 +67,9 @@ abstract class AbstractRule
             return $this->value;
         }
 
-        return $this->value;
+        return $this->value ?? "";
     }
-
-    // public function getCastedValue(){
-    //     if(is_null($this->type)){
-    //         throw new BadMethodCallException("The type for the casting isn't set.");
-    //     }
-
-    //     settype($this->value, $this->type);
-    //     return $this->value;
-    // }
-
-    // protected function getValueUncasted(){
-    //     return $this->value;
-    // }
+    
     /**
      * @param string $type Possibles types :
      * - "int"

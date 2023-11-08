@@ -21,32 +21,32 @@ class LengthRule extends AbstractRuleThrowableException
         $this->tryThrowRuleException();
 
         if(is_string($value) == false && is_array($value) == false){
-            $this->setMessage("La donnée n'est ni sous forme de texte, ni sous forme de liste.");
+            $this->setMessage("La donnée venant du champs " . $this->getPlaceHolder() . " n'est ni sous forme de texte, ni sous forme de liste.");
             return false;
         }
 
         if (is_string($value)) {
-            $stringLength = strlen(trim($value));
+            $stringLength = strlen($value);
 
             if($stringLength < $this->minLength){
-                $this->setMessage("La longueur de votre :string, doit être supérieur ou égal à " . $this->minLength);
+                $this->setMessage("La longueur du texte venant du champs :" . $this->getKey() . ", doit être supérieur ou égal à " . $this->minLength);
                 return false;
             }
             
             if($this->checkIfMaxLengthNotRespected($stringLength)){
-                $this->setMessage("La longueur de votre :string, doit être inférieur ou égal à " . $this->maxLength);
+                $this->setMessage("La longueur du texte venant du champs :" . $this->getKey() . ", doit être inférieur ou égal à " . $this->maxLength);
                 return false;
             }
 
         } else if (is_array($value)) {
             $arrayLength = count($value);
             if($arrayLength < $this->minLength){
-                $this->setMessage("La longueur de votre :array, doit être supérieur ou égal à " . $this->minLength);
+                $this->setMessage("La longueur de votre liste venant du champs :". $this->getKey() .", doit être supérieur ou égal à " . $this->minLength);
                 return false;
             }
 
             if($this->checkIfMaxLengthNotRespected($arrayLength)){
-                $this->setMessage("La longueur de votre :array, doit être inférieur ou égal à " . $this->maxLength);
+                $this->setMessage("La longueur de votre liste venant du champs : ". $this->getKey() .", doit être inférieur ou égal à " . $this->maxLength);
                 return false;
             }
         }

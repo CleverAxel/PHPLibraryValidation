@@ -9,7 +9,7 @@ class BelgianPhoneNumberRule extends AbstractRule{
     public function isRuleValid(): bool
     {
         $value = $this->getValue();
-        $this->setMessage("Le numéro de téléphone donné n'est pas valide ou n'est pas belge.");
+        $this->setMessage("Le numéro de téléphone venant du champs ". $this->getPlaceHolder() ." n'est pas valide ou n'est pas belge.");
 
         if(!is_string($value))
         return false;

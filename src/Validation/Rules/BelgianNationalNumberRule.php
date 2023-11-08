@@ -15,7 +15,7 @@ class BelgianNationalNumberRule extends AbstractRule
     public function isRuleValid(): bool
     {
         $value = StringHelper::removeCommonsSeparations($this->getValue());
-        $this->setMessage("Le numéro de registre national n'est pas valide.");
+        $this->setMessage("Le numéro de registre national venant du champs " . $this->getPlaceHolder() . " n'est pas valide.");
         
         if (!is_string($value))
             return false;

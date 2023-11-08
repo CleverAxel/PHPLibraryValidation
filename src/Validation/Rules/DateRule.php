@@ -11,12 +11,12 @@ class DateRule extends AbstractRule{
     public function __construct($format= "Y/m/d")
     {
         $this->format = $format;
-        $this->setMessage("La date donnée n'est pas valide");
     }
-
+    
     public function isRuleValid(): bool
     {
         $value = $this->getValue();
+        $this->setMessage("La date donnée venant du champs " . $this->getPlaceHolder() . " n'est pas valide");
         
         if(!is_string($value)){
             return false;

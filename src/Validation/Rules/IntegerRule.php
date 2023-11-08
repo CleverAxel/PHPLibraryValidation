@@ -13,7 +13,7 @@ class IntegerRule extends AbstractRule{
 
     public function isRuleValid(): bool
     {
-        $this->setMessage("La valeur donnée doit être un nombre entier");
+        $this->setMessage("La valeur du champs " . $this->getPlaceHolder() ." n'est pas un nombre entier");
 
         return NumberHelper::isInteger($this->getValue());
     }

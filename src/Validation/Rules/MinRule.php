@@ -17,9 +17,14 @@ class MinRule extends AbstractRule{
     public function isRuleValid(): bool
     {
         $value = $this->getValue();
-        $this->setMessage("La valeur ne peut pas être plus petite que : " . $this->minValue);
 
-        if(NumberHelper::isFloat($value) == false || (float)$value < $this->minValue){
+        $this->setMessage("La valeur du champs " . $this->getPlaceHolder() ." n'est pas un nombre");
+        if(NumberHelper::isFloat($value) == false){
+            return false;
+        }
+
+        $this->setMessage("La valeur du champs " . $this->getPlaceHolder() . " ne peut pas être plus petite que : " . $this->minValue);
+        if((float)$value < $this->minValue){
             return false;
         }
 

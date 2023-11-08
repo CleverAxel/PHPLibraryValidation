@@ -10,13 +10,13 @@ class BooleanRule extends AbstractRule{
 
     public function isRuleValid(): bool
     {
-        $this->setMessage("La valeur booléenne n'est pas correct.");
+        $this->setMessage("La valeur du champs ". $this->getPlaceHolder() ."  n'est pas une valeur booléenne correct.");
         if(in_array($this->getValue(), ["1", "0", 1, 0, true, false, "true", "false"])){
             return true;
         }
 
         $value = true;
-        if($this->getValue() == null){
+        if($this->getValue() == ""){
             $value = false;
         }
         

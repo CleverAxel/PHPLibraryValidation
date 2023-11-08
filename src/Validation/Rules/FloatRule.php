@@ -13,7 +13,7 @@ class FloatRule extends AbstractRule{
 
     public function isRuleValid(): bool
     {
-        $this->setMessage("La valeur donnée doit être un nombre à virgule");
+        $this->setMessage("La valeur du champs " . $this->getPlaceHolder() ." n'est pas un nombre ou un nombre à virgule");
         return NumberHelper::isFloat($this->getValue());
     }
 }
