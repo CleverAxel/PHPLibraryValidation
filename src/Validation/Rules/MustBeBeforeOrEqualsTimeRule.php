@@ -30,6 +30,9 @@ class MustBeBeforeOrEqualsTimeRule extends AbstractRuleTimeOperation{
             $this->setMessage("L'heure donnée venant du champs " . $this->getPlaceHolder() . ", " . $value . ", doit être plus tôt ou égal dans le temps que " . $this->timeToCompare);
         }
 
-        return DateTimeHelper::isFirstTimeSoonerOrEqualsThanSecond($value, $this->timeToCompare);
+        if($this->timeToCompare != null)
+            return DateTimeHelper::isFirstTimeSoonerOrEqualsThanSecond($value, $this->timeToCompare);
+
+        return true;
     }
 }

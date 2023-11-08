@@ -9,8 +9,6 @@
     <?php if(isset($_SERVER['HTTP_REFERER'])) {
     $previous = $_SERVER['HTTP_REFERER'];
     echo $previous;
-}else{
-    echo "MERDE";
 } ?>
 </body>
 </html>

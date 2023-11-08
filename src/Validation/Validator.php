@@ -39,16 +39,26 @@ class Validator
 
             $this->executeValidationRules($validationRules, $key);
         }
+        return $this->didValidationFailed;
+        // echo "<pre>";
+        // print_r(array_map(function($errorMessage){
+        //     return array_unique($errorMessage);
+        // },$this->errorValidationMessages));
+        // echo "</pre>";
+        // echo "<br>--------------------------------<br>";
+        // echo "<pre>";
+        // var_dump($this->validatedData);
+        // echo "</pre>";
+    }
 
-        echo "<pre>";
-        print_r(array_map(function($errorMessage){
+    public function getValidatedData(){
+        return $this->validatedData;
+    }
+
+    public function getErrorValidationMessages(){
+        return array_map(function($errorMessage){
             return array_unique($errorMessage);
-        },$this->errorValidationMessages));
-        echo "</pre>";
-        echo "<br>--------------------------------<br>";
-        echo "<pre>";
-        var_dump($this->validatedData);
-        echo "</pre>";
+        },$this->errorValidationMessages);
     }
 
     private function setErrorMessage(string $key, string $message)

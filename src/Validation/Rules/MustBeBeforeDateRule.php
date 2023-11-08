@@ -50,25 +50,4 @@ class MustBeBeforeDateRule extends AbstractRuleDateOperation{
 
         return true;
     }
-
-    // protected function tryThrowRuleException()
-    // {
-    //     if(str_contains($this->format, "Y") == false || str_contains($this->format, "m") == false | str_contains($this->format, "Y") == false){
-    //         throw new RuleException("The format need to incorporate at least Y/m/d");
-    //     }
-
-    //     if($this->isFromInput == false && DateTimeHelper::validateDate($this->dateToCompare, $this->format) == false){
-    //         throw new RuleException("The date given for comparison is invalid.");
-    //     }
-    //     if($this->isFromInput && is_null($this->keyDateToCompare)){
-    //         throw new RuleException("No key given with the input");
-    //     }
-    // }
-
-    // protected function messageInvalideDate(string $date){
-    //     $this->setMessage("La date (" . ($date == "" ? "INCONNUE" : $date) . ") venant du champs :" . $this->getKey() . " est invalide.");
-    // }
-    // protected function messageInvalideDateFromInput(string $date){
-    //     $this->setMessage("La date (" . ($date == "" ? "INCONNUE" : $date) . ") venant du champs :". $this->keyDateToCompare ." est invalide.");
-    // }
 }
